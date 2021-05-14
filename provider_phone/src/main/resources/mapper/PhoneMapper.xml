@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.jk.dao.PhoneDao">
+
+    <select id="querycount" resultType="int">
+        select count(1) from t_phone
+        <include refid="tc"></include>
+
+    </select>
+
+    <select id="queryphone" resultType="com.jk.pojo.PhoneEntity">
+        select * from t_phone
+        <include refid="tc"></include>
+        limit #{start},#{rows}
+    </select>
+
+    <sql id="tc">
+        <where>
+            <if test="phone.pname!=null and phone.pname!='' ">
+                pname like'%${phone.pname}%'
+            </if>
+        </where>
+    </sql>
+
+    <insert id="addphone">
+        insert into t_phone(pname,ptype,price,guige,createdate)values(
+        #{pname},#{ptype},#{price},#{guige},#{createdate}
+        )
+    </insert>
+
+    <delete id="delphone">
+        delete from t_phone where id=#{id}
+    </delete>
+
+    <select id="phonebyid" resultType="com.jk.pojo.PhoneEntity">
+        select * from t_phone where id=#{id}
+    </select>
+
+    <update id="updatephone">
+        update t_phone set pname=#{pname},ptype=#{ptype},price=#{price},guige=#{guige},createdate=#{createdate} where id=#{id}
+    </update>
+
+</mapper>

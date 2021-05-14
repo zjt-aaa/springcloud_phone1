@@ -1,0 +1,15 @@
+server:
+  port: 8084
+spring:
+  application:
+    #应用名称
+    name: client-feign
+eureka:
+  client:
+    service-url:
+      #eureka服务地址
+      defaultZone: http://127.0.0.1:8080/eureka
+#开启熔断器
+feign:
+  hystrix:
+    enabled: true
